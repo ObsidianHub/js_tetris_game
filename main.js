@@ -201,6 +201,13 @@ State.clear = s => {
   let board = concat(newlines)(remains);
   return { ...s, board };
 };
+State.isAnimating = pipe(prop("board"), any(any(flip(gt)(9))));
+State.animate = s => ({
+  ...s,
+  board: map(
+    map(pipe(ifelse(flip(gt)(7))(add(1))(id), ifelse(flip(gt)(30))(k(-1))(id)))
+  )(s.board)
+});
 
 const Board = {};
 Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
