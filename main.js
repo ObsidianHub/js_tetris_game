@@ -27,3 +27,13 @@ const gt = x => y => x > y;
 const lt = x => y => x < y;
 const prop = p => o => o[p];
 const both = f => g => x => f(x) && g(x);
+
+const Color = {};
+Color.black = s => `\x1b[30m${s}\x1b[om`;
+Color.red = s => `\x1b[31m${s}\x1b[om`;
+Color.green = s => `\x1b[32m${s}\x1b[om`;
+Color.yellow = s => `\x1b[33m${s}\x1b[om`;
+Color.blue = s => `\x1b[34m${s}\x1b[om`;
+Color.magenta = s => `\x1b[35m${s}\x1b[om`;
+Color.cyan = s => `\x1b[36m${s}\x1b[om`;
+Color.white = s => `\x1b[37m${s}\x1b[om`;
