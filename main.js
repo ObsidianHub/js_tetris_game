@@ -125,8 +125,12 @@ Matrix.mound = f => pos => m1 => m2 =>
     mapi(val => x =>
       y >= pos.y &&
       y - pos.y < m1.length &&
-      x >= pos.x && x - pos.x < m1[0].length
+      x >= pos.x &&
+      x - pos.x < m1[0].length
         ? f(m1[y - pos.y][x - pos.x])(m2[y][x])
         : m2[y][x]
     )(row)
   )(m2);
+
+const Random = {};
+Random.pick = xs => xs[Math.floor(Math.random() * xs.length)];
