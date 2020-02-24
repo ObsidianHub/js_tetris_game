@@ -134,3 +134,8 @@ Matrix.mound = f => pos => m1 => m2 =>
 
 const Random = {};
 Random.pick = xs => xs[Math.floor(Math.random() * xs.length)];
+
+const Player = {};
+Player.move = d => p => ({ ...p, x: p.x + (d.x || 0), y: p.y + (d.y || 0) });
+Player.make = () => ({ x: 3, y: 0, piece: Piece.rand() });
+Player.rotate = p => ({ ...p, piece: Matrix.rotate(p.piece) });
