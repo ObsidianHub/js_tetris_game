@@ -208,6 +208,18 @@ State.animate = s => ({
     map(pipe(ifelse(flip(gt)(7))(add(1))(id), ifelse(flip(gt)(30))(k(-1))(id)))
   )(s.board)
 });
+State.timeToMove = s => s.time % s.wait == 0;
+State.nextTime = s => ({ ...s, time: s.time + 1 });
+State.maybeMoveDown = ifelse(State.isAnimating)(id)(
+  ifelse(State.timeToMove)(State.moveDown)(id)
+);
+State.next = pipe(
+  State.animate,
+  State.nextTime,
+  State.maybeMoveDown,
+  State.clear,
+  State.swipe
+);
 
 const Board = {};
 Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
