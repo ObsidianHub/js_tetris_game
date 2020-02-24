@@ -120,7 +120,7 @@ Matrix.row = x => m => rep(x)(m[0].length);
 Matrix.frame = m => append(Matrix.row("▔")(m))(m);
 Matrix.rotate = pipe(transpose, mirror);
 Matrix.make = rows => cols => rep(rep(0)(cols))(rows);
-Matrix.mound = f => pos => m1 => m2 =>
+Matrix.mount = f => pos => m1 => m2 =>
   mapi(row => y =>
     mapi(val => x =>
       y >= pos.y &&
@@ -139,3 +139,12 @@ const Player = {};
 Player.move = d => p => ({ ...p, x: p.x + (d.x || 0), y: p.y + (d.y || 0) });
 Player.make = () => ({ x: 3, y: 0, piece: Piece.rand() });
 Player.rotate = p => ({ ...p, piece: Matrix.rotate(p.piece) });
+
+const State = {};
+State.toMatrix = s => Board.mount(s.player)(s.board);
+State.make = k({
+  time: 0,
+  wait: 15,
+  board: Matrix.make(22)(10),
+  player: Player.make()
+});
