@@ -112,3 +112,21 @@ Piece.toStr = n => {
       break;
   }
 };
+
+const Matrix = {};
+Matrix.sum = pipe(map(reduce(add)(0)), reduce(add)(0));
+Matrix.toStr = x => pipe(map(join(" ")), join("\r\n"))(x);
+Matrix.row = x => m => rep(x)(m[0].length);
+Matrix.frame = m => append(Matrix.row("▔")(m))(m);
+Matrix.rotate = pipe(transpose, mirror);
+Matrix.make = rows => cols => rep(rep(0)(cols))(rows);
+Matrix.mound = f => pos => m1 => m2 =>
+  mapi(row => y =>
+    mapi(val => x =>
+      y >= pos.y &&
+      y - pos.y < m1.length &&
+      x >= pos.x && x - pos.x < m1[0].length
+        ? f(m1[y - pos.y][x - pos.x])(m2[y][x])
+        : m2[y][x]
+    )(row)
+  )(m2);
