@@ -168,6 +168,24 @@ State.moveDown = s => {
         player: Player.make()
       };
 };
+State.rotate = s =>
+  State.isAnimating(s)
+    ? s
+    : {
+        ...s,
+        player: find(
+          f =>
+            Matrix.sum(Board.mount(f(s.player))(s.board)) ==
+            Matrix.sum(Board.mount(s.player)(s.board))
+        )([
+          Player.rotate,
+          pipe(Player.move({ x: 1 }), Player.rotate),
+          pipe(Player.move({ x: -1 }), Player.rotate),
+          pipe(Player.move({ x: 2 }), Player.rotate),
+          pipe(Player.move({ x: -2 }), Player.rotate),
+          id
+        ])(s.player)
+      };
 
 const Board = {};
 Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
