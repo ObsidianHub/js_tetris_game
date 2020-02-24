@@ -148,6 +148,13 @@ State.make = k({
   board: Matrix.make(22)(10),
   player: Player.make()
 });
+State.movePlayer = f => s => {
+  if (State.isAnimating(s)) return s;
+  let pre = Board.mount(s.player)(s.board);
+  let post = Board.mount(f(s.player))(s.board);
+  let valid = Matrix.sum(pre) == Matrix.sum(post);
+  return { ...s, player: valid ? f(s.player) : s.player };
+};
 
 const Board = {};
 Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
