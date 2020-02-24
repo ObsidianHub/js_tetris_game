@@ -148,3 +148,7 @@ State.make = k({
   board: Matrix.make(22)(10),
   player: Player.make()
 });
+
+const Board = {};
+Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
+Board.valid = b1 => b2 => Matrix.sum(b1) == Matrix.sum(b2);
