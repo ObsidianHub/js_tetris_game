@@ -186,6 +186,14 @@ State.rotate = s =>
           id
         ])(s.player)
       };
+State.swipe = s => ({
+  ...s,
+  board: s.board.map(
+    ifelse(all(both(flip(gt)(0))(flip(lt)(10))))(
+      k([10, 12, 14, 16, 18, 18, 16, 14, 12, 10])
+    )(id)
+  )
+});
 
 const Board = {};
 Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
