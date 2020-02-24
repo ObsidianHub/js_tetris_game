@@ -194,6 +194,13 @@ State.swipe = s => ({
     )(id)
   )
 });
+State.clear = s => {
+  let remains = filter(any(not(eq(-1))))(s.board);
+  let count = s.board.length - remains.length;
+  let newlines = rep(Matrix.row(0)(remains))(count);
+  let board = concat(newlines)(remains);
+  return { ...s, board };
+};
 
 const Board = {};
 Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
