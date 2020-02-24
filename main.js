@@ -37,3 +37,40 @@ Color.blue = s => `\x1b[34m${s}\x1b[om`;
 Color.magenta = s => `\x1b[35m${s}\x1b[om`;
 Color.cyan = s => `\x1b[36m${s}\x1b[om`;
 Color.white = s => `\x1b[37m${s}\x1b[om`;
+
+const Piece = {};
+Piece.rand = () => Random.pick(Object.values(Pieces));
+Piece.toStr = n => {
+  switch (n) {
+    case 0:
+      return " ";
+      break;
+    case 1:
+      return Color.cyan("▓");
+      break;
+    case 2:
+      return Color.yellow("▓");
+      break;
+    case 3:
+      return Color.magenta("▓");
+      break;
+    case 4:
+      return Color.green("▓");
+      break;
+    case 5:
+      return Color.red("▓");
+      break;
+    case 6:
+      return Color.blue("▓");
+      break;
+    case 7:
+      return Color.white("▓");
+      break;
+    case -1:
+      return " ";
+      break;
+    default:
+      return "░";
+      break;
+  }
+};
