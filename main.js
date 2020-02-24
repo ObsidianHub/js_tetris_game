@@ -152,3 +152,25 @@ State.make = k({
 const Board = {};
 Board.mount = p => Matrix.mount(o => n => (n != 0 ? n : o))(p)(p.piece);
 Board.valid = b1 => b2 => Matrix.sum(b1) == Matrix.sum(b2);
+
+// Key events
+const readline = require("readline");
+readline.emitKeypressEvents(process.stdin);
+process.stdin.setRawMode(true);
+process.stdin.on("keypress", (str, key) => {
+  if (key.ctrl && key.name === "c") process.exit();
+  switch (key.name.toUpperCase()) {
+    case "LEFT":
+      STATE = State.moveLeft(STATE);
+      break;
+    case "RIGHT":
+      STATE = State.moveRight(STATE);
+      break;
+    case "DOWN":
+      STATE = State.moveDown(STATE);
+      break;
+    case "UP":
+      STATE = State.rotate(STATE);
+      break;
+  }
+});
