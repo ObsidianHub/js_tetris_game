@@ -174,3 +174,21 @@ process.stdin.on("keypress", (str, key) => {
       break;
   }
 });
+
+// Game loop
+let STATE = State.make();
+const step = () => (STATE = State.next(STATE));
+const show = () =>
+  console.log(
+    "\x1Bc" +
+      pipe(
+        State.toMatrix,
+        map(map(Piece.toStr)),
+        Matrix.frame,
+        Matrix.toStr
+      )(STATE)
+  );
+setInterval(() => {
+  step();
+  show();
+}, 30);
